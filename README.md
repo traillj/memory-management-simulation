@@ -1,2 +1,2 @@
 # memory-management-simulation
-Computer Systems Project 1
+See project-spec-1.pdf for the project specification.

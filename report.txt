@@ -1,0 +1,87 @@
+#
+# COMP30023 Computer Systems
+# Project 1
+# Author: traillj
+#
+# Report.
+#
+
+Process data file:
+0 1 10 14
+7 2 10 6
+17 3 10 1
+
+fcfs:              multi:
+Time   PID      |  Time   PID
+0-14   1        |  0-2    1
+14-20  2        |  2-6    1
+20-21  3        |  6-14   1
+                |  14-16  2
+                |  16-20  2
+                |  20-21  3
+                |
+PID  Wait Time  |  PID  Wait Time
+1    0          |  1    0
+2    7          |  2    7
+3    3          |  3    3
+avg  3.33       |  avg  3.33
+
+The multi-level feedback queue is configured as in the
+specifcation.
+Assuming that swapping the process running on the CPU
+is negligible, with the above input, a multi-level feedback
+queue and first-come first-served queue perform equally.
+If this is not assumed, fcfs is faster as less swaps are
+performed. This is because the processes enter a quantum
+which provides enough time to finish when a new process
+arrives. This means that if processes finish shortly after
+or before any process arrives, a multi-level feedback queue
+is no better than a first-come first-served queue.
+
+
+Process data file:
+0 1 10 3
+0 2 10 3
+
+fcfs:              multi:
+Time   PID      |  Time   PID
+0-3    1        |  0-2    1
+3-6    2        |  2-4    2
+                |  4-5    1
+                |  5-6    2
+                |
+PID  Wait Time  |  PID  Wait Time
+1    0          |  1    2
+2    3          |  2    3
+avg  1.5        |  avg  2.5
+
+When the processes have the same burst time, fcfs has the
+shorter average wait time. This is because the benefits
+of a multi-level feedback queue come from favouring the
+scheduling of shorter processes to run on the CPU. When
+processes require the same burst time, processes all finish
+around the same time.
+
+
+Process data file:
+0 1 10 3
+0 2 10 6
+
+fcfs:              multi:
+Time   PID      |  Time   PID
+0-3    1        |  0-2    1
+3-9    2        |  2-4    2
+                |  4-5    1
+                |  5-9    2
+                |
+PID  Wait Time  |  PID  Wait Time
+1    0          |  1    2
+2    3          |  2    3
+avg  1.5        |  avg  2.5
+
+When the incoming processes have non-decreasing burst
+times, fcfs has the shorter average wait time.
+This is because an optimal scheduling algorithm for
+minimising the average wait time would run the shortest
+waiting process. If each process is no shorter than the
+previous, fcfs minimises the average wait time.
